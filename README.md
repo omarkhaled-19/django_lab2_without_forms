@@ -1,19 +1,8 @@
 # 🛍️ Django Lab2 – Products App (Without Django Forms)
 
-This project is a simple Django application to manage products with **CRUD operations** (Create, Read, Update, Delete) using **MySQL** database integration and image upload functionality. 
+This project is a simple Django application to manage products with **CRD operations** (Create, Read, Delete) using **MySQL** database integration and image upload functionality. 
 
 The key feature of this project is that it's built **without Django Forms** — instead using plain HTML forms with `request.POST` and `request.FILES`.
-
-## 📋 Table of Contents
-
-- [Prerequisites](#-prerequisites)
-- [Installation Guide](#-installation-guide)
-- [Database Setup](#-database-setup)
-- [Project Configuration](#-project-configuration)
-- [Running the Project](#-running-the-project)
-- [Features](#-features)
-- [Project Structure](#-project-structure)
-- [Troubleshooting](#-troubleshooting)
 
 ## ✅ Prerequisites
 
