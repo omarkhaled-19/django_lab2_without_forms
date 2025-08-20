@@ -1,34 +1,187 @@
 # 🛍️ Django Lab2 – Products App (Without Django Forms)
 
-This project is a simple Django application to manage products.  
-It demonstrates **CRUD operations** (Create, Read, Delete) with **MySQL** integration, and allows image uploads for products.  
+This project is a simple Django application to manage products with **CRUD operations** (Create, Read, Update, Delete) using **MySQL** database integration and image upload functionality. 
 
-The key difference is that this project is built **without Django Forms** — instead, plain HTML forms and `request.POST`/`request.FILES` are used.
+The key feature of this project is that it's built **without Django Forms** — instead using plain HTML forms with `request.POST` and `request.FILES`.
 
----
+## 📋 Table of Contents
 
-## 📖 Table of Contents
-1. [Prerequisites](#-prerequisites)  
-2. [Project Setup](#-project-setup)  
-3. [Database Setup](#-database-setup)  
-4. [Django Settings](#-django-settings)  
-5. [Apply Migrations](#-apply-migrations)  
-6. [Run the Development Server](#-run-the-development-server)  
-7. [Media Files Setup](#-media-files-setup)  
-8. [Django Admin Setup](#-django-admin-setup)  
-9. [Quick Recap](#-quick-recap)  
-10. [Notes](#-notes)  
-
----
+- [Prerequisites](#-prerequisites)
+- [Installation Guide](#-installation-guide)
+- [Database Setup](#-database-setup)
+- [Project Configuration](#-project-configuration)
+- [Running the Project](#-running-the-project)
+- [Features](#-features)
+- [Project Structure](#-project-structure)
+- [Troubleshooting](#-troubleshooting)
 
 ## ✅ Prerequisites
 
-Before you begin, make sure the following are installed on your machine:
+Before starting, ensure you have the following installed:
 
-- **Python 3.8+**  
-- **pip** (Python package manager)  
-- **MySQL Server** installed and running  
+- **Python 3.8+** ([Download here](https://python.org/downloads/))
+- **MySQL Server** ([Download here](https://dev.mysql.com/downloads/mysql/))
+- **Git** ([Download here](https://git-scm.com/downloads))
 
-### Python Packages Required:
+## 🚀 Installation Guide
+
+### Step 1: Clone the Repository
 ```bash
-pip install django pillow mysqlclient
+git clone https://github.com/yourusername/django-lab2-products.git
+cd django-lab2-products
+```
+
+### Step 2: Create Virtual Environment (Recommended)
+```bash
+# Create virtual environment
+python -m venv venv
+
+# Activate virtual environment
+# On Windows:
+venv\Scripts\activate
+# On macOS/Linux:
+source venv/bin/activate
+```
+
+### Step 3: Install Required Python Packages
+```bash
+pip install django
+pip install pillow
+pip install mysqlclient
+```
+
+> **Note**: If you encounter issues installing `mysqlclient`, see the [Troubleshooting](#troubleshooting) section below.
+
+## 🗄️ Database Setup
+
+### Step 1: Start MySQL Server
+Make sure your MySQL server is running on your machine.
+
+### Step 2: Create Database and User
+Open MySQL command line or MySQL Workbench and run:
+
+```sql
+-- Create database
+CREATE DATABASE productsdb;
+
+-- Create user (optional - you can use root)
+CREATE USER 'django'@'localhost' IDENTIFIED BY 'password';
+
+-- Grant privileges
+GRANT ALL PRIVILEGES ON productsdb.* TO 'django'@'localhost';
+FLUSH PRIVILEGES;
+```
+
+### Step 3: Verify Database Settings
+Your database should have these settings:
+- **Database Name**: `productsdb`
+- **Username**: `django` (or `root` if you prefer)
+- **Password**: `password` (or your root password)
+- **Host**: `localhost`
+- **Port**: `3306` (default MySQL port)
+
+## ⚙️ Project Configuration
+
+### Step 1: Configure Database Settings
+In your `settings.py`, ensure the database configuration matches:
+
+```python
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'productsdb',
+        'USER': 'django',
+        'PASSWORD': 'password',
+        'HOST': 'localhost',
+        'PORT': '3306',
+    }
+}
+```
+
+### Step 2: Configure Media Files
+Ensure these settings are in your `settings.py`:
+
+```python
+import os
+
+# Media files (for image uploads)
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+```
+
+## 🏃‍♂️ Running the Project
+
+### Step 1: Apply Database Migrations
+```bash
+python manage.py makemigrations
+python manage.py migrate
+```
+
+### Step 2: Create Superuser (Optional)
+```bash
+python manage.py createsuperuser
+```
+Follow the prompts to create an admin account.
+
+### Step 3: Run Development Server
+```bash
+python manage.py runserver
+```
+
+The application will be available at: `http://127.0.0.1:8000/`
+
+### Step 4: Access Admin Panel (Optional)
+Visit `http://127.0.0.1:8000/admin/` and login with your superuser credentials.
+
+## ✨ Features
+
+- ✅ **Create Products**: Add new products with name, description, price, and image
+- ✅ **View Products**: Display all products in a clean list format
+- ✅ **Update Products**: Edit existing product information
+- ✅ **Delete Products**: Remove products from the database
+- ✅ **Image Upload**: Upload and display product images
+- ✅ **MySQL Integration**: Full database persistence
+- ✅ **Admin Panel**: Django admin interface for easy management
+- ✅ **No Django Forms**: Built with plain HTML forms for learning purposes
+
+
+## 🔧 Troubleshooting
+
+### MySQL Connection Issues
+If you get database connection errors:
+1. Ensure MySQL server is running
+2. Verify database name, username, and password
+3. Check if the database `productsdb` exists
+
+### mysqlclient Installation Issues
+
+**On Windows:**
+```bash
+pip install mysqlclient
+# If it fails, try:
+pip install wheel
+pip install mysqlclient
+```
+
+**On macOS:**
+```bash
+brew install mysql
+pip install mysqlclient
+```
+
+**On Ubuntu/Linux:**
+```bash
+sudo apt-get install python3-dev default-libmysqlclient-dev build-essential
+pip install mysqlclient
+```
+
+### Media Files Not Displaying
+Ensure your main `urls.py` includes media URL configuration:
+
+```python
+from django.conf import settings
+from django.conf.urls.static import static
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+```
