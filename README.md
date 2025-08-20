@@ -8,15 +8,15 @@ The key feature of this project is that it's built **without Django Forms** — 
 
 Before starting, ensure you have the following installed:
 
-- **Python 3.8+** ([Download here](https://python.org/downloads/))
-- **MySQL Server** ([Download here](https://dev.mysql.com/downloads/mysql/))
-- **Git** ([Download here](https://git-scm.com/downloads))
+- **Python 3.8+**
+- **MySQL Server** 
+- **Git** 
 
 ## 🚀 Installation Guide
 
 ### Step 1: Clone the Repository
 ```bash
-git clone https://github.com/yourusername/django-lab2-products.git
+git clone https://github.com/omarkhaled-19/django_lab2_wihtout_forms.git
 cd django-lab2-products
 ```
 
@@ -39,7 +39,7 @@ pip install pillow
 pip install mysqlclient
 ```
 
-> **Note**: If you encounter issues installing `mysqlclient`, see the [Troubleshooting](#troubleshooting) section below.
+> **Note**: If you encounter issues installing `mysqlclient`, see the Troubleshooting section below.
 
 ## 🗄️ Database Setup
 
